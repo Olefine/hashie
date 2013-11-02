@@ -25,7 +25,6 @@ class MashTest < MiniTest::Test
   end
 
   def test_multi_level
-    p "test_multi_level"
     mash = Hashie::Mash.new
     author_mash = mash.author!
     assert !author_mash.nil?
