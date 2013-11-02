@@ -1,9 +1,9 @@
 require "test_helper"
 
 class Person < Hashie::Dash
-  # property :name, :required => true
-  # property :email
-  # property :occupation, :default => 'Rubyist'
+  property :name, :required => true
+  property :email
+  property :occupation, :default => 'Rubyist'
 end
 
 class DashTest < MiniTest::Test
@@ -14,7 +14,7 @@ class DashTest < MiniTest::Test
   end
 
   def test_constructor
-    # p = Person.new(:name => "Bob")
-    # assert_equal 'Bob', p.name
+    p = Person.new(:name => "Bob")
+    assert_equal 'Bob', p.name
   end
 end
