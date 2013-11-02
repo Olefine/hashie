@@ -1,5 +1,8 @@
 # Hashie
 
+[![Coverage Status](https://coveralls.io/repos/Olefine/hashie/badge.png)](https://coveralls.io/r/Olefine/hashie)
+[![Build Status](https://travis-ci.org/Olefine/hashie.png?branch=master)](https://travis-ci.org/Olefine/hashie)
+
 TODO: Write a gem description
 
 ## Installation
