@@ -12,7 +12,7 @@ module Hashie
         @hash.has_key?(key)
       elsif mod == '='
         @hash[key] = args[0]
-      elsif mod == '!'
+      elsif mod == '!' || mod == '_'
         if @nested_hashes.has_key?(:key)
           @nested_hashes[key]
         else
