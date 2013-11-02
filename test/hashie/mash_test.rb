@@ -16,4 +16,11 @@ class MashTest < MiniTest::Test
     assert_equal "My Mash", mash.name
     assert_equal true, mash.name?
   end
+
+  def test_inspect
+    mash = Hashie::Mash.new
+    assert_equal '<Hashie::Mash>', mash.inspect
+    mash.name = "My Mash"
+    assert_equal '<Hashie::Mash name="My Mash">', mash.inspect
+  end
 end

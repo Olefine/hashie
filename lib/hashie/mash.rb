@@ -16,5 +16,14 @@ module Hashie
         @hash[key]
       end
     end
+
+    def inspect
+      s = '<' + self.class.ancestors.first.to_s
+      s << ' ' if !@hash.empty?
+      @hash.each do |k,v|
+        s << "#{k}=\"#{v}\""
+      end
+      s << '>'
+    end
   end
 end
