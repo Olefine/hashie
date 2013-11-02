@@ -23,4 +23,13 @@ class MashTest < MiniTest::Test
     mash.name = "My Mash"
     assert_equal '<Hashie::Mash name="My Mash">', mash.inspect
   end
+
+  def test_multi_level
+    p "test_multi_level"
+    mash = Hashie::Mash.new
+    author_mash = mash.author!
+    assert !author_mash.nil?
+    author_mash.name = "Michael Bleigh"
+    assert_equal '<Hashie::Mash name="Michael Bleigh">', mash.author.inspect
+  end
 end
