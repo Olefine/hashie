@@ -28,7 +28,13 @@ module Hashie
       self
     end
 
-    def process_normal(name, value)
+    def process_normal(name, new_value)
+      current_value = @cur[name]
+      if current_value.class == Hash && new_value.class == Hash
+        value = current_value.merge(new_value)
+      else
+        value = new_value
+      end
       @cur[name] = value
       self
     end
