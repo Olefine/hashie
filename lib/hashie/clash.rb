@@ -4,7 +4,7 @@ module Hashie
 
     def initialize
       @stack = []
-      @cur=self
+      @cur = self
     end
 
     def parse_modname(method_name)
@@ -28,20 +28,29 @@ module Hashie
       self
     end
 
-    def method_missing(*args)
-      mod, name = parse_modname(args[0])
-      return process_bang(name) if mod == '!'
-
-      if args.size == 2
-        value = args[1]
-      elsif args.size > 2
-        value = args[1..-1]
-      else
-        value = nil
-      end
-
+    def process_normal(name, value)
       @cur[name] = value
       self
+    end
+
+    def extract_value(args)
+      if args.size == 1
+        args[0]
+      elsif args.size > 1
+        args
+      else
+        nil
+      end
+    end
+
+    def method_missing(method_name, *args)
+      mod, name = parse_modname(method_name)
+      case mod
+      when '!'
+        process_bang(name)
+      else
+        process_normal(name, extract_value(args))
+      end
     end
   end
 end
