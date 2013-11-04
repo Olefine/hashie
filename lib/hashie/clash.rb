@@ -1,12 +1,37 @@
 module Hashie
   class Clash < Hash
+    @@mods = ['!']
+
     def initialize
-      @main={}
-      @cur=@main
+      @stack = []
+      @cur=self
+    end
+
+    def parse_modname(method_name)
+      mod = method_name[-1]
+      if @@mods.include?(mod)
+        [mod, method_name[0..-2].to_sym]
+      else
+        [nil, method_name]
+      end
+    end
+
+    def process_bang(name)
+      if name == :_end
+        @cur = @stack.pop
+      else
+        @stack.push(@cur)
+        new_hash = {}
+        @cur[name] = new_hash
+        @cur = new_hash
+      end
+      self
     end
 
     def method_missing(*args)
-      name = args[0]
+      mod, name = parse_modname(args[0])
+      return process_bang(name) if mod == '!'
+
       if args.size == 2
         value = args[1]
       elsif args.size > 2
@@ -14,7 +39,8 @@ module Hashie
       else
         value = nil
       end
-      self[name] = value
+
+      @cur[name] = value
       self
     end
   end
